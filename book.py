@@ -1,3 +1,6 @@
+# from nltk.corpus import cmudict
+# import nltk
+
 class Book:
     text_title = ''
 
@@ -15,23 +18,12 @@ class Book:
 
 
     def total_word_count(self):
+        number_of_words = 0
         with open(self.text_title,'r') as f:
             with open(self.text_title,'r') as f:
-                f = f.replace(',', '')
-                f = f.replace('.', '')
-                f = f.replace('!', '')
-                f = f.replace('?', '')
-                f = f.replace(':', '')
-                f = f.replace(';', '')
-                f = f.replace('(', '')
-                f = f.replace(')', '')
-                f = f.replace(" '", '')
-                f = f.replace("' ", '')
-
-                # put all the words plus their occurence values in a dictionary
-                words = f.split()
-                number_of_words = 0
-                number_of_words = number_of_words + len(words)
+                for line in f:
+                    words = line.split()
+                    number_of_words = number_of_words + len(words)
                 # print(number_of_words)
                 return number_of_words
 
@@ -72,7 +64,7 @@ class Book:
 
     def lexical_density(self):
         with open(self.text_title,'r') as f:
-
+            pass
     def shortest_words(self):
         shortest_word_length = 0
         word_lengths = {}
@@ -309,23 +301,23 @@ class Book:
 
 
 
-    def count_syllables(self, syl_word):
-    	'''This is a function that tries the primary method,
-    	and then tries the secondary method
-    	'''
+    def count_syllables(self):
+    	# '''This is a function that tries the primary method,
+    	# and then tries the secondary method
+    	#  '''
         total_syllables = 0
         with open(self.text_title,'r') as f:
             for line in f:
                 for syl_word in line:
-    	               try:
-                           syl_list = nsyl(syl_word)
-    		               if len(syl_list) == 1:
-    	                          total_syllables = total_syllables + syl_list[0]
-    		               else:
-    			                  total_syllables = total_syllables +nsyl_2(syl_word)
-    	               except:
-                           total_syllables = total_syllables + nsyl_2(syl_word)
-        return total_syllables
+                    try:
+                        syl_list = nsyl(syl_word)
+                        if len(syl_list) == 1:
+                            total_syllables = total_syllables + syl_list[0]
+                        else:
+                            total_syllables = total_syllables +nsyl_2(syl_word)
+                    except:
+                        total_syllables = total_syllables + nsyl_2(syl_word)
+                        return total_syllables
 
 
     def ari_score(self):
@@ -371,26 +363,26 @@ class Book:
             return automated_readability_index
 
 
-        def output_report(self):
-            with open('book_output_report.txt', 'w') as new_file:
-                new_file.write()
-            with open('book_output_report.txt', 'a') as new_file:
-                new_file.write("The total character count is: " + total_chars())
-                new_file.write("The total word count is: " + total_word_count())
-                # new_file.write(most_common_words())
-                new_file.write("The lexical density is: " + lexical_density())
-                # new_file.write(shortest_words())
-                # new_file.write(longest_words())
-                # new_file.write(unique_word_count())
-                # new_file.write(rarest_words())
-                new_file.write("The total number of sentences is: " + num_of_sentences())
-                new_file.write("The average sentence length is: " + average_sentence_length())
-                new_file.write("The minimum sentence length is: " + min_sentence_length())
-                new_file.write("The maximum sentence length is: " + max_sentence_length())
-                new_file.write("The total number of syllables is: " + count_syllables())
-                new_file.write("The ARI is: " + ari_score())
+    def output_report(self):
+        with open('book_output_report.txt', 'w') as new_file:
+            new_file.write('')
+        with open('book_output_report.txt', 'w') as new_file:
+            new_file.write("The total character count is: " + str(self.total_chars()) + "\n")
+            new_file.write("The total word count is: " + str(self.total_word_count()) + "\n")
+            # new_file.write(self.most_common_words() + "\n")
+            # new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
+            # new_file.write(self.shortest_words() + "\n")
+            # new_file.write(self.longest_words() + "\n")
+            # new_file.write(self.unique_word_count() + "\n")
+            # new_file.write(self.rarest_words() + "\n")
+            new_file.write("The total number of sentences is: " + str(self.num_of_sentences()) + "\n")
+            new_file.write("The average sentence length is: " + str(self.average_sentence_length()) + "\n")
+            new_file.write("The minimum sentence length is: " + str(self.min_sentence_length()) + "\n")
+            new_file.write("The maximum sentence length is: " + str(self.max_sentence_length()) + "\n")
+            # new_file.write("The total number of syllables is: " + str(self.count_syllables()) + "\n")
+            new_file.write("The ARI is: " + str(self.ari_score()) + "\n")
 
 
 
-new_book = Book('geneology_of_morals.txt')
+new_book = Book('gettysburg_address.txt')
 new_book.output_report()
