@@ -11,6 +11,8 @@ class Book:
             number_of_chars = 0
             for line in f:
                 number_of_chars = number_of_chars + len(line) - line.count('.') - line.count(' ') - line.count(',') - line.count('(') - line.count(')') - line.count('-') - line.count('[') - line.count(']') - line.count(':') - line.count("'")
+        return number_of_chars
+
 
     def total_word_count(self):
         with open(self.text_title,'r') as f:
@@ -28,13 +30,15 @@ class Book:
 
                 # put all the words plus their occurence values in a dictionary
                 words = f.split()
+                number_of_words = 0
                 number_of_words = number_of_words + len(words)
-                print(number_of_words)
+                # print(number_of_words)
                 return number_of_words
 
     def most_common_words(self):
         greatest_occurence_value = 0
         word_occurences = {}
+        most_common_words = {}
         with open(self.text_title,'r') as f:
             f = f.replace(',', '')
             f = f.replace('.', '')
@@ -72,6 +76,7 @@ class Book:
     def shortest_words(self):
         shortest_word_length = 0
         word_lengths = {}
+        shortest_words = {}
         with open(self.text_title,'r') as f:
             f = f.replace(',', '')
             f = f.replace('.', '')
@@ -103,6 +108,7 @@ class Book:
     def longest_words(self):
         longest_word_length = 0
         word_lengths = {}
+        longest_words = {}
         with open(self.text_title,'r') as f:
             f = f.replace(',', '')
             f = f.replace('.', '')
@@ -133,6 +139,7 @@ class Book:
 
     def unique_word_count(self):
         word_occurences = {}
+        unique_words = {}
         with open(self.text_title,'r') as f:
             f = f.replace(',', '')
             f = f.replace('.', '')
@@ -161,6 +168,7 @@ class Book:
     def rarest_words(self):
         lowest_occurence_value = 99999
         word_occurences = {}
+        rarest_words = {}
         with open(self.text_title,'r') as f:
             f = f.replace(',', '')
             f = f.replace('.', '')
@@ -220,7 +228,7 @@ class Book:
             for line in f:
                 number_of_sentences = number_of_sentences + line.count('.')
 
-        print(number_of_sentences)
+        # print(number_of_sentences)
         return number_of_sentences
 
     def average_sentence_length(self):
@@ -236,7 +244,7 @@ class Book:
                 total_line_length = total_line_length + len(line)
 
         average = total_line_length / num_of_lines
-        print(average)
+        # print(average)
         return average
 
     def min_sentence_length(self):
@@ -252,7 +260,7 @@ class Book:
                     min_length = len(line)
                     index_of_min = index
                 index += 1
-        print(min_length)
+        # print(min_length)
         return min_length
 
 
@@ -269,12 +277,56 @@ class Book:
                     max_length = len(line)
                     index_of_max = index
                 index += 1
-        print(max_length)
+        # print(max_length)
         return max_length
 
 
-    def count_syllables(self):
+    def nsyl(self, word):
+    	'''This is the primary function for getting syllables
+    	'''
+    	print('nsyl')
+    	return [len(list(y for y in x if y[-1].isdigit())) for x in d[word.lower()]]
+
+    def nsyl_2(self, word):
+    	'''This is the backup function for getting syllables
+    	'''
+    	chars = []
+    	vowel_list = ['a', 'e', 'i', 'o', 'u', 'y']
+    	counter = 0
+    	for i in word:
+    		chars.append(i)
+    	if chars[-1] != 'e' and chars[-1] in vowel_list:
+    		counter =+ 1
+    	if chars[-2:] == ['e', 'd'] and len(chars) > 4 and chars[-3] not in ['d', 't']:
+    		counter -= 1
+    		print('aaa')
+    	for i in range(1, len(chars)):
+    		if chars[i] not in vowel_list:
+    			if chars[i - 1] in vowel_list:
+    				counter += 1
+    	print('nsyl2')
+    	return counter
+
+
+
+    def count_syllables(self, syl_word):
+    	'''This is a function that tries the primary method,
+    	and then tries the secondary method
+    	'''
+        total_syllables = 0
         with open(self.text_title,'r') as f:
+            for line in f:
+                for syl_word in line:
+    	               try:
+                           syl_list = nsyl(syl_word)
+    		               if len(syl_list) == 1:
+    	                          total_syllables = total_syllables + syl_list[0]
+    		               else:
+    			                  total_syllables = total_syllables +nsyl_2(syl_word)
+    	               except:
+                           total_syllables = total_syllables + nsyl_2(syl_word)
+        return total_syllables
+
 
     def ari_score(self):
         number_of_sentences = 0
@@ -307,16 +359,38 @@ class Book:
 
             automated_readability_index = (4.71) * (number_of_chars/number_of_words) + (0.5) * (number_of_words/number_of_sentences) - 21.43
 
-            print(str(number_of_words) + " words")
-            print(str(number_of_chars) +" characters")
-            print(str(number_of_sentences) + " sentences")
-            print(str(automated_readability_index) + " is its ARI")
+            # print(str(number_of_words) + " words")
+            # print(str(number_of_chars) +" characters")
+            # print(str(number_of_sentences) + " sentences")
+            # print(str(automated_readability_index) + " is its ARI")
             automated_readability_index = int(automated_readability_index)
             if automated_readability_index > 14:
                 automated_readability_index = 14
-            print("Ages: " + ari_scale[automated_readability_index]['ages'] + " Grade:" + ari_scale[automated_readability_index]['grade_level'])
-            print("")
+            # print("Ages: " + ari_scale[automated_readability_index]['ages'] + " Grade:" + ari_scale[automated_readability_index]['grade_level'])
+            # print("")
+            return automated_readability_index
 
 
         def output_report(self):
-            with open(self.text_title,'r') as f:
+            with open('book_output_report.txt', 'w') as new_file:
+                new_file.write()
+            with open('book_output_report.txt', 'a') as new_file:
+                new_file.write("The total character count is: " + total_chars())
+                new_file.write("The total word count is: " + total_word_count())
+                # new_file.write(most_common_words())
+                new_file.write("The lexical density is: " + lexical_density())
+                # new_file.write(shortest_words())
+                # new_file.write(longest_words())
+                # new_file.write(unique_word_count())
+                # new_file.write(rarest_words())
+                new_file.write("The total number of sentences is: " + num_of_sentences())
+                new_file.write("The average sentence length is: " + average_sentence_length())
+                new_file.write("The minimum sentence length is: " + min_sentence_length())
+                new_file.write("The maximum sentence length is: " + max_sentence_length())
+                new_file.write("The total number of syllables is: " + count_syllables())
+                new_file.write("The ARI is: " + ari_score())
+
+
+
+new_book = Book('geneology_of_morals.txt')
+new_book.output_report()
