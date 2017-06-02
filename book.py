@@ -8,18 +8,97 @@ class Book:
 
     def total_chars(self):
         with open(self.text_title,'r') as f:
+            number_of_chars = 0
+            for line in f:
+                number_of_chars = number_of_chars + len(line) - line.count('.') - line.count(' ') - line.count(',') - line.count('(') - line.count(')') - line.count('-') - line.count('[') - line.count(']') - line.count(':') - line.count("'")
 
     def total_word_count(self):
         with open(self.text_title,'r') as f:
+            with open(self.text_title,'r') as f:
+                f = f.replace(',', '')
+                f = f.replace('.', '')
+                f = f.replace('!', '')
+                f = f.replace('?', '')
+                f = f.replace(':', '')
+                f = f.replace(';', '')
+                f = f.replace('(', '')
+                f = f.replace(')', '')
+                f = f.replace(" '", '')
+                f = f.replace("' ", '')
+
+                # put all the words plus their occurence values in a dictionary
+                words = f.split()
+                number_of_words = number_of_words + len(words)
+                print(number_of_words)
+                return number_of_words
 
     def most_common_words(self):
+        greatest_occurence_value = 0
+        word_occurences = {}
         with open(self.text_title,'r') as f:
+            f = f.replace(',', '')
+            f = f.replace('.', '')
+            f = f.replace('!', '')
+            f = f.replace('?', '')
+            f = f.replace(':', '')
+            f = f.replace(';', '')
+            f = f.replace('(', '')
+            f = f.replace(')', '')
+            f = f.replace(" '", '')
+            f = f.replace("' ", '')
+
+            # put all the words plus their occurence values in a dictionary
+            words = f.split()
+            for word in words:
+                if word in word_occurences:
+                    word_occurences[word] = word_occurences[word] + 1
+                else:
+                    word_occurences[word] = 1
+
+            # search dictionary for occurence values
+            for word in word_occurences:
+                if word_occurences[word] > greatest_occurence_value:
+                    greatest_occurence_value = word_occurences[word]
+
+            print("Your rarest words are: ")
+            for word in word_occurences:
+                if word_occurences[word] == greatest_occurence_value:
+                    print(word)
+            print("With " + greatest_occurence_value + "occurence(s) each")
 
     def lexical_density(self):
         with open(self.text_title,'r') as f:
 
     def shortest_words(self):
+        shortest_word_length = 0
+        word_lengths = {}
         with open(self.text_title,'r') as f:
+            f = f.replace(',', '')
+            f = f.replace('.', '')
+            f = f.replace('!', '')
+            f = f.replace('?', '')
+            f = f.replace(':', '')
+            f = f.replace(';', '')
+            f = f.replace('(', '')
+            f = f.replace(')', '')
+            f = f.replace(" '", '')
+            f = f.replace("' ", '')
+
+            # put all the words plus their length values in a dictionary
+            words = f.split()
+            for word in words:
+                word_lengths[word] = len(word_lengths[word])
+
+            # search dictionary for lengths
+            for word in word_lengths:
+                if word_lengths[word] < shortest_word_length:
+                    shortest_word_length = word_lengths[word]
+
+            print("Your shortest word(s) are: ")
+            for word in word_lengths:
+                if word_lengths[word] == shortest_word_length:
+                    print(word)
+            print("All being " + shortest_word_length + " long")
 
     def longest_words(self):
         longest_word_length = 0
@@ -33,6 +112,8 @@ class Book:
             f = f.replace(';', '')
             f = f.replace('(', '')
             f = f.replace(')', '')
+            f = f.replace(" '", '')
+            f = f.replace("' ", '')
 
             # put all the words plus their length values in a dictionary
             words = f.split()
@@ -48,7 +129,7 @@ class Book:
             for word in word_lengths:
                 if word_lengths[word] == longest_word_length:
                     print(word)
-            print("With " + longest_word_length + "occurence(s) each")
+            print("All being " + longest_word_length + " long")
 
     def unique_word_count(self):
         word_occurences = {}
@@ -61,6 +142,8 @@ class Book:
             f = f.replace(';', '')
             f = f.replace('(', '')
             f = f.replace(')', '')
+            f = f.replace(" '", '')
+            f = f.replace("' ", '')
 
             # put all the words plus their occurence values in a dictionary
             words = f.split()
@@ -87,6 +170,8 @@ class Book:
             f = f.replace(';', '')
             f = f.replace('(', '')
             f = f.replace(')', '')
+            f = f.replace(" '", '')
+            f = f.replace("' ", '')
 
             # put all the words plus their occurence values in a dictionary
             words = f.split()
@@ -118,6 +203,8 @@ class Book:
             f = f.replace(';', '')
             f = f.replace('(', '')
             f = f.replace(')', '')
+            f = f.replace(" '", '')
+            f = f.replace("' ", '')
 
             user_input = input("Enter a word to be searched: ")
             words = f.split()
