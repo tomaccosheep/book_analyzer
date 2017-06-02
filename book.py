@@ -1,3 +1,5 @@
+import nltk
+
 class Book:
     text_title = ''
 
@@ -16,17 +18,17 @@ class Book:
 
     def total_word_count(self):
         with open(self.text_title,'r') as f:
-            with open(self.text_title,'r') as f:
-                f = f.replace(',', '')
-                f = f.replace('.', '')
-                f = f.replace('!', '')
-                f = f.replace('?', '')
-                f = f.replace(':', '')
-                f = f.replace(';', '')
-                f = f.replace('(', '')
-                f = f.replace(')', '')
-                f = f.replace(" '", '')
-                f = f.replace("' ", '')
+			 for line in file:
+		        print(line.replace(',', ''), end='')
+		        print(line.replace('.', ''), end='')
+		        print(line.replace('!', ''), end='')
+		        print(line.replace('?', ''), end='')
+		        print(line.replace(':', ''), end='')
+		        print(line.replace(';', ''), end='')
+		        print(line.replace('(', ''), end='')
+		        print(line.replace(')', ''), end='')
+		        print(line.replace(' \'', ''), end='')
+		        print(line.replace('\' ', ''), end='')
 
                 # put all the words plus their occurence values in a dictionary
                 words = f.split()
@@ -71,7 +73,22 @@ class Book:
             print("With " + greatest_occurence_value + "occurence(s) each")
 
     def lexical_density(self):
-        with open(self.text_title,'r') as f:
+		f = open("myfile.txt").read()
+		tokens = nltk.word_tokenize(f)
+		word_counter = 0 #counts words
+		lex_counter = 0 #counts lexical words
+		tokens = nltk.word_tokenize(words)
+		for i in nltk.pos_tag(tokens): # for i in the list of tuples
+										 # (word, word type) (run, VB)
+			word_counter += 1
+			if i[1] in ['JJ', 'JJR', 'JJS', 'NN', 'NNS', 'NNP', 'NNPS', 'RB', 'RBR', 'RBS', 'VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ' ]:
+				lex_counter +=1
+		return [word_counter, lex_counter]
+
+
+
+		
+
 
     def shortest_words(self):
         shortest_word_length = 0
