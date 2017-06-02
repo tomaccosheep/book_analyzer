@@ -1,0 +1,29 @@
+
+
+
+
+
+
+
+old code:
+count total Chars (characters) with or without spaces
+count total words
+ari score
+count number of sentences
+
+
+nltk
+	count syllables
+	determine lexical density
+		
+
+
+
+
+
+count number of most common words
+find longest words
+find shortest words
+unique word count
+find rarest words
+determine word occurrence/frequency for any given word
