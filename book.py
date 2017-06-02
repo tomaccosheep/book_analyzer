@@ -22,13 +22,35 @@ class Book:
         with open(self.text_title,'r') as f:
 
     def longest_words(self):
+        longest_word_length = 0
+        word_lengths = {}
         with open(self.text_title,'r') as f:
+            f = f.replace(',', '')
+            f = f.replace('.', '')
+            f = f.replace('!', '')
+            f = f.replace('?', '')
+            f = f.replace(':', '')
+            f = f.replace(';', '')
+            f = f.replace('(', '')
+            f = f.replace(')', '')
+
+            # put all the words plus their length values in a dictionary
+            words = f.split()
+            for word in words:
+                word_lengths[word] = len(word_lengths[word])
+
+            # search dictionary for lengths
+            for word in word_lengths:
+                if word_lengths[word] > longest_word_length:
+                    longest_word_length = word_lengths[word]
+
+            print("Your longest word(s) are: ")
+            for word in word_lengths:
+                if word_lengths[word] == longest_word_length:
+                    print(word)
+            print("With " + longest_word_length + "occurence(s) each")
 
     def unique_word_count(self):
-        with open(self.text_title,'r') as f:
-
-    def rarest_words(self):
-        lowest_occurence = 99999
         word_occurences = {}
         with open(self.text_title,'r') as f:
             f = f.replace(',', '')
@@ -43,12 +65,60 @@ class Book:
             # put all the words plus their occurence values in a dictionary
             words = f.split()
             for word in words:
-                if user_input.lower() == word.lower():
-                    word_count += 1
+                if word in word_occurences:
+                    word_occurences[word] = word_occurences[word] + 1
+                else:
+                    word_occurences[word] = 1
+
+            print("Your unique(1 occurence) words are: ")
+            for word in word_occurences:
+                if word_occurences[word] == 1:
+                    print(word)
+
+    def rarest_words(self):
+        lowest_occurence_value = 99999
+        word_occurences = {}
+        with open(self.text_title,'r') as f:
+            f = f.replace(',', '')
+            f = f.replace('.', '')
+            f = f.replace('!', '')
+            f = f.replace('?', '')
+            f = f.replace(':', '')
+            f = f.replace(';', '')
+            f = f.replace('(', '')
+            f = f.replace(')', '')
+
+            # put all the words plus their occurence values in a dictionary
+            words = f.split()
+            for word in words:
+                if word in word_occurences:
+                    word_occurences[word] = word_occurences[word] + 1
+                else:
+                    word_occurences[word] = 1
+
+            # search dictionary for occurence values
+            for word in word_occurences:
+                if word_occurences[word] < lowest_occurence_value:
+                    lowest_occurence_value = word_occurences[word]
+
+            print("Your rarest words are: ")
+            for word in word_occurences:
+                if word_occurences[word] == lowest_occurence_value:
+                    print(word)
+            print("With " + lowest_occurence_value + "occurence(s) each")
 
     def word_occurence(self):
         word_count = 0
         with open(self.text_title,'r') as f:
+            f = f.replace(',', '')
+            f = f.replace('.', '')
+            f = f.replace('!', '')
+            f = f.replace('?', '')
+            f = f.replace(':', '')
+            f = f.replace(';', '')
+            f = f.replace('(', '')
+            f = f.replace(')', '')
+
             user_input = input("Enter a word to be searched: ")
             words = f.split()
             for word in words:
