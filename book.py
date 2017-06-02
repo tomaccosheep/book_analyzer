@@ -28,22 +28,93 @@ class Book:
         with open(self.text_title,'r') as f:
 
     def rarest_words(self):
+        lowest_occurence = 99999
+        word_occurences = {}
         with open(self.text_title,'r') as f:
+            f = f.replace(',', '')
+            f = f.replace('.', '')
+            f = f.replace('!', '')
+            f = f.replace('?', '')
+            f = f.replace(':', '')
+            f = f.replace(';', '')
+            f = f.replace('(', '')
+            f = f.replace(')', '')
+
+            # put all the words plus their occurence values in a dictionary
+            words = f.split()
+            for word in words:
+                if user_input.lower() == word.lower():
+                    word_count += 1
 
     def word_occurence(self):
+        word_count = 0
         with open(self.text_title,'r') as f:
+            user_input = input("Enter a word to be searched: ")
+            words = f.split()
+            for word in words:
+                if user_input.lower() == word.lower():
+                    word_count += 1
+        print("Your word " + user_input + " appears " + word_count + " times")
+        return word_count
 
     def num_of_sentences(self):
+        number_of_sentences = 0
         with open(self.text_title,'r') as f:
+            for line in f:
+                number_of_sentences = number_of_sentences + line.count('.')
+
+        print(number_of_sentences)
+        return number_of_sentences
 
     def average_sentence_length(self):
+        lines = []
+        total_line_length = 0
+        num_of_lines = 0
+        average = 0
         with open(self.text_title,'r') as f:
+            for line in f:
+                lines.append(line)
+                num_of_lines = num_of_lines + 1
+            for line in lines:
+                total_line_length = total_line_length + len(line)
+
+        average = total_line_length / num_of_lines
+        print(average)
+        return average
 
     def min_sentence_length(self):
+        lines = []
+        min_length = 1000
+        index = 0
+        index_of_min = 0
         with open(self.text_title,'r') as f:
+            for line in f:
+                lines.append(line)
+            for line in lines:
+                if len(line) < min_length:
+                    min_length = len(line)
+                    index_of_min = index
+                index += 1
+        print(min_length)
+        return min_length
+
 
     def max_sentence_length(self):
+        lines = []
+        max_length = 0
+        index = 0
+        index_of_max = 0
         with open(self.text_title,'r') as f:
+            for line in f:
+                lines.append(line)
+            for line in lines:
+                if len(line) > max_length:
+                    max_length = len(line)
+                    index_of_max = index
+                index += 1
+        print(max_length)
+        return max_length
+
 
     def count_syllables(self):
         with open(self.text_title,'r') as f:
