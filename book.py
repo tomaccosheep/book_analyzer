@@ -6,7 +6,44 @@ class Book:
     def __init__(self, name):
         self.text_title = name
 
+    def total_chars(self):
+        with open(self.text_title,'r') as f:
 
+    def total_word_count(self):
+        with open(self.text_title,'r') as f:
+
+    def most_common_words(self):
+        with open(self.text_title,'r') as f:
+
+    def lexical_density(self):
+        with open(self.text_title,'r') as f:
+
+    def shortest_words(self):
+        with open(self.text_title,'r') as f:
+
+    def longest_words(self):
+        with open(self.text_title,'r') as f:
+
+    def unique_word_count(self):
+        with open(self.text_title,'r') as f:
+
+    def rarest_words(self):
+        with open(self.text_title,'r') as f:
+
+    def word_occurence(self):
+        with open(self.text_title,'r') as f:
+
+    def num_of_sentences(self):
+        with open(self.text_title,'r') as f:
+
+    def average_sentence_length(self):
+        with open(self.text_title,'r') as f:
+
+    def min_sentence_length(self):
+        with open(self.text_title,'r') as f:
+
+    def max_sentence_length(self):
+        with open(self.text_title,'r') as f:
 
     def count_syllables(self):
         with open(self.text_title,'r') as f:
@@ -51,3 +88,7 @@ class Book:
                 automated_readability_index = 14
             print("Ages: " + ari_scale[automated_readability_index]['ages'] + " Grade:" + ari_scale[automated_readability_index]['grade_level'])
             print("")
+
+
+        def output_report(self):
+            with open(self.text_title,'r') as f:
