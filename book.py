@@ -35,7 +35,7 @@ class Book:
         with open('self.text_title','r') as f:
             for line in f:
                 words = line.split()
-                number_of_sentences = number_of_sentences + line.count('.')
+                number_of_sentences = number_of_sentences + line.count('.') # 3 variables about sentences
                 number_of_words = number_of_words + len(words)
                 number_of_chars = number_of_chars + len(line) - line.count('.') - line.count(' ') - line.count(',') - line.count('(') - line.count(')') - line.count('-') - line.count('[') - line.count(']') - line.count(':')
 
