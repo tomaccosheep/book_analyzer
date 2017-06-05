@@ -388,20 +388,7 @@ class Book:
         # and then tries the secondary method
         #  '''
         total_syllables = 0 # the counter starts at 0
-<<<<<<< HEAD
-        with open(self.text_title,'r') as f:
-            for line in f:
-                for syl_word in line:
-                    try:
-                        syl_list = nsyl(syl_word) # Try the primary method
-                        if len(syl_list) == 1: # Sometimes there's an error
-                            total_syllables = total_syllables + syl_list[0]
-                        else:
-                            total_syllables = total_syllables +nsyl_2(syl_word)
-                    except:
-                        total_syllables = total_syllables + nsyl_2(syl_word)
-                        return total_syllables
-=======
+
         with open(self.text_title,'r') as f: 
             f = open(self.text_title).read()
             tokens = nltk.word_tokenize(f)
@@ -415,7 +402,6 @@ class Book:
                 except:
                     total_syllables = total_syllables + self.nsyl_2(syl_word)
             return total_syllables
->>>>>>> 6cc3a3e7318ff55a53caaf3975f810e297373d7a
 
 
     def ari_score(self):
@@ -468,19 +454,11 @@ class Book:
             new_file.write("The total character count is: " + str(self.total_chars()) + "\n")
             new_file.write("The total word count is: " + str(self.total_word_count()) + "\n")
             new_file.write("The most common word(s) are: " + str(self.most_common_words()) + "\n")
-<<<<<<< HEAD
-            # new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
+            new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
             new_file.write("The shortest word(s) are: " + str(self.shortest_words()) + "\n")
             new_file.write("The longest word(s) are: " + str(self.longest_words()) + "\n")
             new_file.write("The unique (1 occurence) word(s) are: " + str(self.unique_word_count()) + "\n")
             new_file.write("The least common word(s) are: " + str(self.rarest_words()) + "\n")
-=======
-            new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
-            # new_file.write(self.shortest_words() + "\n")
-            # new_file.write(self.longest_words() + "\n")
-            # new_file.write(self.unique_word_count() + "\n")
-            # new_file.write(self.rarest_words() + "\n")
->>>>>>> 6cc3a3e7318ff55a53caaf3975f810e297373d7a
             new_file.write("The total number of sentences is: " + str(self.num_of_sentences()) + "\n")
             new_file.write("The average sentence length is: " + str(self.average_sentence_length()) + "\n")
             new_file.write("The minimum sentence length is: " + str(self.min_sentence_length()) + "\n")
