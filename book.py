@@ -1,9 +1,9 @@
-# <<<<<<< HEAD
+
 # from nltk.corpus import cmudict
 # import nltk
-# =======
+
 import nltk
-# >>>>>>> d4fa31ee7a1e8e3dee298c3c441487e8dbce3f8c
+
 
 class Book:
     text_title = ''
@@ -34,20 +34,28 @@ class Book:
         greatest_occurence_value = 0
         word_occurences = {}
         most_common_words = {}
+        lines = []
+        words = []
         with open(self.text_title,'r') as f:
-            f = f.replace(',', '')
-            f = f.replace('.', '')
-            f = f.replace('!', '')
-            f = f.replace('?', '')
-            f = f.replace(':', '')
-            f = f.replace(';', '')
-            f = f.replace('(', '')
-            f = f.replace(')', '')
-            f = f.replace(" '", '')
-            f = f.replace("' ", '')
+            for line in f:
+                lines.append(line)
+            for lines in line:
+
+                line = line.replace(',', '')
+                line = line.replace('.', '')
+                line = line.replace('!', '')
+                line = line.replace('?', '')
+                line = line.replace(':', '')
+                line = line.replace(';', '')
+                line = line.replace('(', '')
+                line = line.replace(')', '')
+                line = line.replace(" '", '')
+                line = line.replace("' ", '')
+                line = line.replace('-', ' ')
 
             # put all the words plus their occurence values in a dictionary
-            words = f.split()
+            for line in lines:
+                words = words + f.split()
             for word in words:
                 if word in word_occurences:
                     word_occurences[word] = word_occurences[word] + 1
@@ -59,11 +67,11 @@ class Book:
                 if word_occurences[word] > greatest_occurence_value:
                     greatest_occurence_value = word_occurences[word]
 
-            print("Your rarest words are: ")
+            # add the greatest occurence words to their own dictionary
             for word in word_occurences:
                 if word_occurences[word] == greatest_occurence_value:
-                    print(word)
-            print("With " + greatest_occurence_value + "occurence(s) each")
+                    most_common_words[word] = greatest_occurence_value
+            return most_common_words
 
     def lexical_density(self):
         with open(self.text_title,'r') as f:
@@ -85,7 +93,7 @@ class Book:
 
 
 
-# >>>>>>> d4fa31ee7a1e8e3dee298c3c441487e8dbce3f8c
+
     def shortest_words(self):
         shortest_word_length = 0
         word_lengths = {}
@@ -390,7 +398,7 @@ class Book:
         with open('book_output_report.txt', 'w') as new_file:
             new_file.write("The total character count is: " + str(self.total_chars()) + "\n")
             new_file.write("The total word count is: " + str(self.total_word_count()) + "\n")
-            # new_file.write(self.most_common_words() + "\n")
+            new_file.write("The most common words are: " + str(self.most_common_words()) + "\n")
             # new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
             # new_file.write(self.shortest_words() + "\n")
             # new_file.write(self.longest_words() + "\n")
