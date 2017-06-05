@@ -104,7 +104,7 @@ class Book:
 
 
 
-		
+
 
 
 >>>>>>> d4fa31ee7a1e8e3dee298c3c441487e8dbce3f8c
@@ -412,7 +412,7 @@ class Book:
         with open('book_output_report.txt', 'w') as new_file:
             new_file.write("The total character count is: " + str(self.total_chars()) + "\n")
             new_file.write("The total word count is: " + str(self.total_word_count()) + "\n")
-            # new_file.write(self.most_common_words() + "\n")
+            new_file.write(self.most_common_words() + "\n")
             # new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
             # new_file.write(self.shortest_words() + "\n")
             # new_file.write(self.longest_words() + "\n")
