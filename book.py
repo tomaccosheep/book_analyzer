@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+# <<<<<<< HEAD
 # from nltk.corpus import cmudict
 # import nltk
-=======
+# =======
 import nltk
->>>>>>> d4fa31ee7a1e8e3dee298c3c441487e8dbce3f8c
+# >>>>>>> d4fa31ee7a1e8e3dee298c3c441487e8dbce3f8c
 
 class Book:
     text_title = ''
@@ -24,31 +24,11 @@ class Book:
     def total_word_count(self):
         number_of_words = 0
         with open(self.text_title,'r') as f:
-<<<<<<< HEAD
-            with open(self.text_title,'r') as f:
-                for line in f:
-                    words = line.split()
-                    number_of_words = number_of_words + len(words)
-=======
-			 for line in file:
-		        print(line.replace(',', ''), end='')
-		        print(line.replace('.', ''), end='')
-		        print(line.replace('!', ''), end='')
-		        print(line.replace('?', ''), end='')
-		        print(line.replace(':', ''), end='')
-		        print(line.replace(';', ''), end='')
-		        print(line.replace('(', ''), end='')
-		        print(line.replace(')', ''), end='')
-		        print(line.replace(' \'', ''), end='')
-		        print(line.replace('\' ', ''), end='')
-
-                # put all the words plus their occurence values in a dictionary
-                words = f.split()
-                number_of_words = 0
+            for line in f:
+                words = line.split()
                 number_of_words = number_of_words + len(words)
->>>>>>> d4fa31ee7a1e8e3dee298c3c441487e8dbce3f8c
-                # print(number_of_words)
-                return number_of_words
+
+        return number_of_words
 
     def most_common_words(self):
         greatest_occurence_value = 0
@@ -86,10 +66,8 @@ class Book:
             print("With " + greatest_occurence_value + "occurence(s) each")
 
     def lexical_density(self):
-<<<<<<< HEAD
         with open(self.text_title,'r') as f:
             pass
-=======
 		f = open("myfile.txt").read()
 		tokens = nltk.word_tokenize(f)
 		word_counter = 0 #counts words
@@ -107,7 +85,7 @@ class Book:
 
 
 
->>>>>>> d4fa31ee7a1e8e3dee298c3c441487e8dbce3f8c
+# >>>>>>> d4fa31ee7a1e8e3dee298c3c441487e8dbce3f8c
     def shortest_words(self):
         shortest_word_length = 0
         word_lengths = {}
@@ -412,7 +390,7 @@ class Book:
         with open('book_output_report.txt', 'w') as new_file:
             new_file.write("The total character count is: " + str(self.total_chars()) + "\n")
             new_file.write("The total word count is: " + str(self.total_word_count()) + "\n")
-            new_file.write(self.most_common_words() + "\n")
+            # new_file.write(self.most_common_words() + "\n")
             # new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
             # new_file.write(self.shortest_words() + "\n")
             # new_file.write(self.longest_words() + "\n")
