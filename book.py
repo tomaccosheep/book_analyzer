@@ -79,7 +79,7 @@ class Book:
 		lex_counter = 0 #counts lexical words
 		tokens = nltk.word_tokenize(words)
 		for i in nltk.pos_tag(tokens): # for i in the list of tuples
-										 # (word, word type) (run, VB)
+			#if i not in [',', '.', ';', '							 # (word, word type) (run, VB)
 			word_counter += 1
 			if i[1] in ['JJ', 'JJR', 'JJS', 'NN', 'NNS', 'NNP', 'NNPS', 'RB', 'RBR', 'RBS', 'VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ' ]:
 				lex_counter +=1
