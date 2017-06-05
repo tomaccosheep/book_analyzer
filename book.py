@@ -1,8 +1,6 @@
-
-# from nltk.corpus import cmudict
-# import nltk
-
+from nltk.corpus import cmudict
 import nltk
+
 
 
 class Book:
@@ -35,11 +33,12 @@ class Book:
         word_occurences = {}
         most_common_words = {}
         lines = []
+        new_lines = []
         words = []
         with open(self.text_title,'r') as f:
             for line in f:
                 lines.append(line)
-            for lines in line:
+            for line in lines:
 
                 line = line.replace(',', '')
                 line = line.replace('.', '')
@@ -52,21 +51,23 @@ class Book:
                 line = line.replace(" '", '')
                 line = line.replace("' ", '')
                 line = line.replace('-', ' ')
+                line = line.replace('\n', '')
+                new_lines.append(line)
 
             # put all the words plus their occurence values in a dictionary
-            for line in lines:
-                words = words + f.split()
+            for line in new_lines:
+                temp_words_list = line.split()
+                for word in temp_words_list:
+                    words.append(word)
             for word in words:
                 if word in word_occurences:
                     word_occurences[word] = word_occurences[word] + 1
                 else:
                     word_occurences[word] = 1
-
             # search dictionary for occurence values
             for word in word_occurences:
                 if word_occurences[word] > greatest_occurence_value:
                     greatest_occurence_value = word_occurences[word]
-
             # add the greatest occurence words to their own dictionary
             for word in word_occurences:
                 if word_occurences[word] == greatest_occurence_value:
@@ -399,7 +400,7 @@ class Book:
         with open('book_output_report.txt', 'w') as new_file:
             new_file.write("The total character count is: " + str(self.total_chars()) + "\n")
             new_file.write("The total word count is: " + str(self.total_word_count()) + "\n")
-            new_file.write("The most common words are: " + str(self.most_common_words()) + "\n")
+            new_file.write("The most common word(s) are: " + str(self.most_common_words()) + "\n")
             # new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
             # new_file.write(self.shortest_words() + "\n")
             # new_file.write(self.longest_words() + "\n")
