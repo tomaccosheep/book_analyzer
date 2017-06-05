@@ -87,7 +87,8 @@ class Book:
                 word_counter += 1
                 if i[1] in ['JJ', 'JJR', 'JJS', 'NN', 'NNS', 'NNP', 'NNPS', 'RB', 'RBR', 'RBS', 'VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ' ]:
                     lex_counter +=1
-        return [word_counter, lex_counter]
+        out = lex_counter / word_counter
+        return str(out)
 
 
 
@@ -306,7 +307,6 @@ class Book:
     def nsyl(self, word):
         '''This is the primary function for getting syllables
         '''
-        print('nsyl')
         return [len(list(y for y in x if y[-1].isdigit())) for x in d[word.lower()]]
 
     def nsyl_2(self, word):
@@ -327,7 +327,6 @@ class Book:
             if chars[i] not in vowel_list:
                 if chars[i - 1] in vowel_list:
                     counter += 1 # adds one if a character isn't a vowel, but the previous one is a vowel
-        print('nsyl2')
         return counter
 
 
@@ -339,16 +338,16 @@ class Book:
         total_syllables = 0 # the counter starts at 0
         with open(self.text_title,'r') as f: 
             f = open(self.text_title).read()
-            tolkens = nltk.word_tolkenize(f)
-            for syl_word in tolkens: 
+            tokens = nltk.word_tokenize(f)
+            for syl_word in tokens: 
                 try:
-                    syl_list = nsyl(syl_word) # Try the primary method
+                    syl_list = self.nsyl(syl_word) # Try the primary method
                     if len(syl_list) == 1: # Sometimes there's an error 
                         total_syllables = total_syllables + syl_list[0]
                     else:
-                        total_syllables = total_syllables +nsyl_2(syl_word)
+                        total_syllables = total_syllables + self.nsyl_2(syl_word)
                 except:
-                    total_syllables = total_syllables + nsyl_2(syl_word)
+                    total_syllables = total_syllables + self.nsyl_2(syl_word)
             return total_syllables
 
 
@@ -402,7 +401,7 @@ class Book:
             new_file.write("The total character count is: " + str(self.total_chars()) + "\n")
             new_file.write("The total word count is: " + str(self.total_word_count()) + "\n")
             new_file.write("The most common word(s) are: " + str(self.most_common_words()) + "\n")
-            # new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
+            new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
             # new_file.write(self.shortest_words() + "\n")
             # new_file.write(self.longest_words() + "\n")
             # new_file.write(self.unique_word_count() + "\n")
@@ -411,7 +410,7 @@ class Book:
             new_file.write("The average sentence length is: " + str(self.average_sentence_length()) + "\n")
             new_file.write("The minimum sentence length is: " + str(self.min_sentence_length()) + "\n")
             new_file.write("The maximum sentence length is: " + str(self.max_sentence_length()) + "\n")
-            # new_file.write("The total number of syllables is: " + str(self.count_syllables()) + "\n")
+            new_file.write("The total number of syllables is: " + str(self.count_syllables()) + "\n")
             new_file.write("The ARI is: " + str(self.ari_score()) + "\n")
 
 
