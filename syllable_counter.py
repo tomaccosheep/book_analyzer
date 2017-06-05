@@ -1,4 +1,6 @@
 from nltk.corpus import cmudict
+import nltk
+
 d = cmudict.dict()
 
 
@@ -28,7 +30,7 @@ def nsyl_2(word):
 				counter += 1
 	print('nsyl2')
 	return counter
-	
+
 
 
 def syl_num(syl_word):
@@ -51,5 +53,3 @@ while True:
 	'''
 	a = input(':')
 	print(syl_num(a))
-
-
