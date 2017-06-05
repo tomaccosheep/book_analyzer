@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 # from nltk.corpus import cmudict
 # import nltk
+=======
 import nltk
+>>>>>>> d4fa31ee7a1e8e3dee298c3c441487e8dbce3f8c
 
 class Book:
     text_title = ''
@@ -21,26 +24,29 @@ class Book:
     def total_word_count(self):
         number_of_words = 0
         with open(self.text_title,'r') as f:
+<<<<<<< HEAD
             with open(self.text_title,'r') as f:
                 for line in f:
                     words = line.split()
                     number_of_words = number_of_words + len(words)
-                for line in f:
-                    print(line.replace(',', ''), end='')
-                    print(line.replace('.', ''), end='')
-                    print(line.replace('!', ''), end='')
-                    print(line.replace('?', ''), end='')
-                    print(line.replace(':', ''), end='')
-                    print(line.replace(';', ''), end='')
-                    print(line.replace('(', ''), end='')
-                    print(line.replace(')', ''), end='')
-                    print(line.replace(' \'', ''), end='')
-                    print(line.replace('\' ', ''), end='')
+=======
+			 for line in file:
+		        print(line.replace(',', ''), end='')
+		        print(line.replace('.', ''), end='')
+		        print(line.replace('!', ''), end='')
+		        print(line.replace('?', ''), end='')
+		        print(line.replace(':', ''), end='')
+		        print(line.replace(';', ''), end='')
+		        print(line.replace('(', ''), end='')
+		        print(line.replace(')', ''), end='')
+		        print(line.replace(' \'', ''), end='')
+		        print(line.replace('\' ', ''), end='')
 
                 # put all the words plus their occurence values in a dictionary
                 words = f.split()
                 number_of_words = 0
                 number_of_words = number_of_words + len(words)
+>>>>>>> d4fa31ee7a1e8e3dee298c3c441487e8dbce3f8c
                 # print(number_of_words)
                 return number_of_words
 
@@ -80,25 +86,28 @@ class Book:
             print("With " + greatest_occurence_value + "occurence(s) each")
 
     def lexical_density(self):
+<<<<<<< HEAD
         with open(self.text_title,'r') as f:
             pass
-        f = open("myfile.txt").read()
-        tokens = nltk.word_tokenize(f)
-        word_counter = 0 #counts words
-        lex_counter = 0 #counts lexical words
-        tokens = nltk.word_tokenize(words)
-        for i in nltk.pos_tag(tokens): # for i in the list of tuples
-            if i not in [',', '.', ';', '?', '!']:
-                word_counter += 1
-                if i[1] in ['JJ', 'JJR', 'JJS', 'NN', 'NNS', 'NNP', 'NNPS', 'RB', 'RBR', 'RBS', 'VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ' ]:
-                    lex_counter +=1
-        return [word_counter, lex_counter]
+=======
+		f = open("myfile.txt").read()
+		tokens = nltk.word_tokenize(f)
+		word_counter = 0 #counts words
+		lex_counter = 0 #counts lexical words
+		tokens = nltk.word_tokenize(words)
+		for i in nltk.pos_tag(tokens): # for i in the list of tuples
+			#if i not in [',', '.', ';', '							 # (word, word type) (run, VB)
+			word_counter += 1
+			if i[1] in ['JJ', 'JJR', 'JJS', 'NN', 'NNS', 'NNP', 'NNPS', 'RB', 'RBR', 'RBS', 'VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ' ]:
+				lex_counter +=1
+		return [word_counter, lex_counter]
 
 
 
 
 
 
+>>>>>>> d4fa31ee7a1e8e3dee298c3c441487e8dbce3f8c
     def shortest_words(self):
         shortest_word_length = 0
         word_lengths = {}
@@ -308,37 +317,37 @@ class Book:
 
 
     def nsyl(self, word):
-        '''This is the primary function for getting syllables
-        '''
-        print('nsyl')
-        return [len(list(y for y in x if y[-1].isdigit())) for x in d[word.lower()]]
+    	'''This is the primary function for getting syllables
+    	'''
+    	print('nsyl')
+    	return [len(list(y for y in x if y[-1].isdigit())) for x in d[word.lower()]]
 
     def nsyl_2(self, word):
-        '''This is the backup function for getting syllables
-        '''
-        chars = []
-        vowel_list = ['a', 'e', 'i', 'o', 'u', 'y']
-        counter = 0
-        for i in word:
-            chars.append(i)
-        if chars[-1] != 'e' and chars[-1] in vowel_list:
-            counter =+ 1
-        if chars[-2:] == ['e', 'd'] and len(chars) > 4 and chars[-3] not in ['d', 't']:
-            counter -= 1
-            print('aaa')
-        for i in range(1, len(chars)):
-            if chars[i] not in vowel_list:
-                if chars[i - 1] in vowel_list:
-                    counter += 1
-        print('nsyl2')
-        return counter
+    	'''This is the backup function for getting syllables
+    	'''
+    	chars = []
+    	vowel_list = ['a', 'e', 'i', 'o', 'u', 'y']
+    	counter = 0
+    	for i in word:
+    		chars.append(i)
+    	if chars[-1] != 'e' and chars[-1] in vowel_list:
+    		counter =+ 1
+    	if chars[-2:] == ['e', 'd'] and len(chars) > 4 and chars[-3] not in ['d', 't']:
+    		counter -= 1
+    		print('aaa')
+    	for i in range(1, len(chars)):
+    		if chars[i] not in vowel_list:
+    			if chars[i - 1] in vowel_list:
+    				counter += 1
+    	print('nsyl2')
+    	return counter
 
 
 
     def count_syllables(self):
-        # '''This is a function that tries the primary method,
-        # and then tries the secondary method
-        #  '''
+    	# '''This is a function that tries the primary method,
+    	# and then tries the secondary method
+    	#  '''
         total_syllables = 0
         with open(self.text_title,'r') as f:
             for line in f:
