@@ -77,17 +77,17 @@ class Book:
     def lexical_density(self):
         with open(self.text_title,'r') as f:
             pass
-		f = open("myfile.txt").read()
-		tokens = nltk.word_tokenize(f)
-		word_counter = 0 #counts words
-		lex_counter = 0 #counts lexical words
-		tokens = nltk.word_tokenize(words)
-		for i in nltk.pos_tag(tokens): # for i in the list of tuples
-			#if i not in [',', '.', ';', '							 # (word, word type) (run, VB)
-			word_counter += 1
-			if i[1] in ['JJ', 'JJR', 'JJS', 'NN', 'NNS', 'NNP', 'NNPS', 'RB', 'RBR', 'RBS', 'VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ' ]:
-				lex_counter +=1
-		return [word_counter, lex_counter]
+        f = open("myfile.txt").read()
+        tokens = nltk.word_tokenize(f)
+        word_counter = 0 #counts words
+        lex_counter = 0 #counts lexical words
+        tokens = nltk.word_tokenize(words) # Converts sentences into words
+        for i in nltk.pos_tag(tokens): # for i in the list of tuples
+            if i[0] not in [',', '.', ';', '?', '!']: # Checks if i[0] is punctuation, in which case it is skipped
+                word_counter += 1
+                if i[1] in ['JJ', 'JJR', 'JJS', 'NN', 'NNS', 'NNP', 'NNPS', 'RB', 'RBR', 'RBS', 'VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ' ]:
+                    lex_counter +=1
+        return [word_counter, lex_counter]
 
 
 
@@ -304,44 +304,44 @@ class Book:
 
 
     def nsyl(self, word):
-    	'''This is the primary function for getting syllables
-    	'''
-    	print('nsyl')
-    	return [len(list(y for y in x if y[-1].isdigit())) for x in d[word.lower()]]
+        '''This is the primary function for getting syllables
+        '''
+        print('nsyl')
+        return [len(list(y for y in x if y[-1].isdigit())) for x in d[word.lower()]]
 
     def nsyl_2(self, word):
-    	'''This is the backup function for getting syllables
-    	'''
-    	chars = []
-    	vowel_list = ['a', 'e', 'i', 'o', 'u', 'y']
-    	counter = 0
-    	for i in word:
-    		chars.append(i)
-    	if chars[-1] != 'e' and chars[-1] in vowel_list:
-    		counter =+ 1
-    	if chars[-2:] == ['e', 'd'] and len(chars) > 4 and chars[-3] not in ['d', 't']:
-    		counter -= 1
-    		print('aaa')
-    	for i in range(1, len(chars)):
-    		if chars[i] not in vowel_list:
-    			if chars[i - 1] in vowel_list:
-    				counter += 1
-    	print('nsyl2')
-    	return counter
+        '''This is the backup function for getting syllables
+        '''
+        chars = []
+        vowel_list = ['a', 'e', 'i', 'o', 'u', 'y']
+        counter = 0
+        for i in word:
+            chars.append(i)
+        if chars[-1] != 'e' and chars[-1] in vowel_list:
+            counter =+ 1
+        if chars[-2:] == ['e', 'd'] and len(chars) > 4 and chars[-3] not in ['d', 't']:
+            counter -= 1
+            print('aaa')
+        for i in range(1, len(chars)):
+            if chars[i] not in vowel_list:
+                if chars[i - 1] in vowel_list:
+                    counter += 1
+        print('nsyl2')
+        return counter
 
 
 
     def count_syllables(self):
-    	# '''This is a function that tries the primary method,
-    	# and then tries the secondary method
-    	#  '''
-        total_syllables = 0
-        with open(self.text_title,'r') as f:
+        # '''This is a function that tries the primary method,
+        # and then tries the secondary method
+        #  '''
+        total_syllables = 0 # the counter starts at 0
+        with open(self.text_title,'r') as f: 
             for line in f:
-                for syl_word in line:
+                for syl_word in line: 
                     try:
-                        syl_list = nsyl(syl_word)
-                        if len(syl_list) == 1:
+                        syl_list = nsyl(syl_word) # Try the primary method
+                        if len(syl_list) == 1: # Sometimes there's an error 
                             total_syllables = total_syllables + syl_list[0]
                         else:
                             total_syllables = total_syllables +nsyl_2(syl_word)
