@@ -326,13 +326,13 @@ class Book:
     	# '''This is a function that tries the primary method,
     	# and then tries the secondary method
     	#  '''
-        total_syllables = 0
-        with open(self.text_title,'r') as f:
+        total_syllables = 0 # the counter starts at 0
+        with open(self.text_title,'r') as f: 
             for line in f:
-                for syl_word in line:
+                for syl_word in line: 
                     try:
-                        syl_list = nsyl(syl_word)
-                        if len(syl_list) == 1:
+                        syl_list = nsyl(syl_word) # Try the primary method
+                        if len(syl_list) == 1: # Sometimes there's an error 
                             total_syllables = total_syllables + syl_list[0]
                         else:
                             total_syllables = total_syllables +nsyl_2(syl_word)
