@@ -77,11 +77,11 @@ class Book:
     def lexical_density(self):
         with open(self.text_title,'r') as f:
             pass
-        f = open("myfile.txt").read()
+        f = open(self.text_title).read()
         tokens = nltk.word_tokenize(f)
         word_counter = 0 #counts words
         lex_counter = 0 #counts lexical words
-        tokens = nltk.word_tokenize(words) # Converts sentences into words
+        tokens = nltk.word_tokenize(f) # Converts sentences into words
         for i in nltk.pos_tag(tokens): # for i in the list of tuples
             if i[0] not in [',', '.', ';', '?', '!']: # Checks if i[0] is punctuation, in which case it is skipped
                 word_counter += 1
@@ -338,17 +338,18 @@ class Book:
         #  '''
         total_syllables = 0 # the counter starts at 0
         with open(self.text_title,'r') as f: 
-            for line in f:
-                for syl_word in line: 
-                    try:
-                        syl_list = nsyl(syl_word) # Try the primary method
-                        if len(syl_list) == 1: # Sometimes there's an error 
-                            total_syllables = total_syllables + syl_list[0]
-                        else:
-                            total_syllables = total_syllables +nsyl_2(syl_word)
-                    except:
-                        total_syllables = total_syllables + nsyl_2(syl_word)
-                        return total_syllables
+            f = open(self.text_title).read()
+            tolkens = nltk.word_tolkenize(f)
+            for syl_word in tolkens: 
+                try:
+                    syl_list = nsyl(syl_word) # Try the primary method
+                    if len(syl_list) == 1: # Sometimes there's an error 
+                        total_syllables = total_syllables + syl_list[0]
+                    else:
+                        total_syllables = total_syllables +nsyl_2(syl_word)
+                except:
+                    total_syllables = total_syllables + nsyl_2(syl_word)
+            return total_syllables
 
 
     def ari_score(self):
