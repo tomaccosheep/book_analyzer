@@ -78,17 +78,18 @@ class Book:
     def lexical_density(self):
         with open(self.text_title,'r') as f:
             pass
-        f = open("myfile.txt").read()
+        f = open(self.text_title).read()
         tokens = nltk.word_tokenize(f)
         word_counter = 0 #counts words
         lex_counter = 0 #counts lexical words
-        tokens = nltk.word_tokenize(words) # Converts sentences into words
+        tokens = nltk.word_tokenize(f) # Converts sentences into words
         for i in nltk.pos_tag(tokens): # for i in the list of tuples
             if i[0] not in [',', '.', ';', '?', '!']: # Checks if i[0] is punctuation, in which case it is skipped
                 word_counter += 1
                 if i[1] in ['JJ', 'JJR', 'JJS', 'NN', 'NNS', 'NNP', 'NNPS', 'RB', 'RBR', 'RBS', 'VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ' ]:
                     lex_counter +=1
-        return [word_counter, lex_counter]
+        out = lex_counter / word_counter
+        return str(out)
 
 
 
@@ -358,7 +359,6 @@ class Book:
     def nsyl(self, word):
         '''This is the primary function for getting syllables
         '''
-        print('nsyl')
         return [len(list(y for y in x if y[-1].isdigit())) for x in d[word.lower()]]
 
     def nsyl_2(self, word):
@@ -379,7 +379,6 @@ class Book:
             if chars[i] not in vowel_list:
                 if chars[i - 1] in vowel_list:
                     counter += 1 # adds one if a character isn't a vowel, but the previous one is a vowel
-        print('nsyl2')
         return counter
 
 
@@ -389,6 +388,7 @@ class Book:
         # and then tries the secondary method
         #  '''
         total_syllables = 0 # the counter starts at 0
+<<<<<<< HEAD
         with open(self.text_title,'r') as f:
             for line in f:
                 for syl_word in line:
@@ -401,6 +401,21 @@ class Book:
                     except:
                         total_syllables = total_syllables + nsyl_2(syl_word)
                         return total_syllables
+=======
+        with open(self.text_title,'r') as f: 
+            f = open(self.text_title).read()
+            tokens = nltk.word_tokenize(f)
+            for syl_word in tokens: 
+                try:
+                    syl_list = self.nsyl(syl_word) # Try the primary method
+                    if len(syl_list) == 1: # Sometimes there's an error 
+                        total_syllables = total_syllables + syl_list[0]
+                    else:
+                        total_syllables = total_syllables + self.nsyl_2(syl_word)
+                except:
+                    total_syllables = total_syllables + self.nsyl_2(syl_word)
+            return total_syllables
+>>>>>>> 6cc3a3e7318ff55a53caaf3975f810e297373d7a
 
 
     def ari_score(self):
@@ -453,16 +468,24 @@ class Book:
             new_file.write("The total character count is: " + str(self.total_chars()) + "\n")
             new_file.write("The total word count is: " + str(self.total_word_count()) + "\n")
             new_file.write("The most common word(s) are: " + str(self.most_common_words()) + "\n")
+<<<<<<< HEAD
             # new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
             new_file.write("The shortest word(s) are: " + str(self.shortest_words()) + "\n")
             new_file.write("The longest word(s) are: " + str(self.longest_words()) + "\n")
             new_file.write("The unique (1 occurence) word(s) are: " + str(self.unique_word_count()) + "\n")
             new_file.write("The least common word(s) are: " + str(self.rarest_words()) + "\n")
+=======
+            new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
+            # new_file.write(self.shortest_words() + "\n")
+            # new_file.write(self.longest_words() + "\n")
+            # new_file.write(self.unique_word_count() + "\n")
+            # new_file.write(self.rarest_words() + "\n")
+>>>>>>> 6cc3a3e7318ff55a53caaf3975f810e297373d7a
             new_file.write("The total number of sentences is: " + str(self.num_of_sentences()) + "\n")
             new_file.write("The average sentence length is: " + str(self.average_sentence_length()) + "\n")
             new_file.write("The minimum sentence length is: " + str(self.min_sentence_length()) + "\n")
             new_file.write("The maximum sentence length is: " + str(self.max_sentence_length()) + "\n")
-            # new_file.write("The total number of syllables is: " + str(self.count_syllables()) + "\n")
+            new_file.write("The total number of syllables is: " + str(self.count_syllables()) + "\n")
             new_file.write("The ARI is: " + str(self.ari_score()) + "\n")
 
 
