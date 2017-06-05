@@ -52,6 +52,7 @@ class Book:
                 line = line.replace("' ", '')
                 line = line.replace('-', ' ')
                 line = line.replace('\n', '')
+                line = line.lower()
                 new_lines.append(line)
 
             # put all the words plus their occurence values in a dictionary
@@ -91,136 +92,187 @@ class Book:
 
 
 
-
-
-
-
     def shortest_words(self):
-        shortest_word_length = 0
+        shortest_word_length = 99999
         word_lengths = {}
         shortest_words = {}
-        with open(self.text_title,'r') as f:
-            f = f.replace(',', '')
-            f = f.replace('.', '')
-            f = f.replace('!', '')
-            f = f.replace('?', '')
-            f = f.replace(':', '')
-            f = f.replace(';', '')
-            f = f.replace('(', '')
-            f = f.replace(')', '')
-            f = f.replace(" '", '')
-            f = f.replace("' ", '')
 
-            # put all the words plus their length values in a dictionary
-            words = f.split()
+        lines = []
+        new_lines = []
+        words = []
+        with open(self.text_title,'r') as f:
+            for line in f:
+                lines.append(line)
+            for line in lines:
+
+                line = line.replace(',', '')
+                line = line.replace('.', '')
+                line = line.replace('!', '')
+                line = line.replace('?', '')
+                line = line.replace(':', '')
+                line = line.replace(';', '')
+                line = line.replace('(', '')
+                line = line.replace(')', '')
+                line = line.replace(" '", '')
+                line = line.replace("' ", '')
+                line = line.replace('-', ' ')
+                line = line.replace('\n', '')
+                line = line.lower()
+                new_lines.append(line)
+
+            # put all the words plus their occurence values in a dictionary
+            for line in new_lines:
+                temp_words_list = line.split()
+                for word in temp_words_list:
+                    words.append(word)
             for word in words:
-                word_lengths[word] = len(word_lengths[word])
+                word_lengths[word] = len(word)
 
             # search dictionary for lengths
             for word in word_lengths:
                 if word_lengths[word] < shortest_word_length:
                     shortest_word_length = word_lengths[word]
 
-            print("Your shortest word(s) are: ")
             for word in word_lengths:
                 if word_lengths[word] == shortest_word_length:
-                    print(word)
-            print("All being " + shortest_word_length + " long")
+                    shortest_words[word] = shortest_word_length
+            return shortest_words
 
     def longest_words(self):
         longest_word_length = 0
         word_lengths = {}
-        longest_words = {}
-        with open(self.text_title,'r') as f:
-            f = f.replace(',', '')
-            f = f.replace('.', '')
-            f = f.replace('!', '')
-            f = f.replace('?', '')
-            f = f.replace(':', '')
-            f = f.replace(';', '')
-            f = f.replace('(', '')
-            f = f.replace(')', '')
-            f = f.replace(" '", '')
-            f = f.replace("' ", '')
+        long_words = {}
 
-            # put all the words plus their length values in a dictionary
-            words = f.split()
+        lines = []
+        new_lines = []
+        words = []
+        with open(self.text_title,'r') as f:
+            for line in f:
+                lines.append(line)
+            for line in lines:
+
+                line = line.replace(',', '')
+                line = line.replace('.', '')
+                line = line.replace('!', '')
+                line = line.replace('?', '')
+                line = line.replace(':', '')
+                line = line.replace(';', '')
+                line = line.replace('(', '')
+                line = line.replace(')', '')
+                line = line.replace(" '", '')
+                line = line.replace("' ", '')
+                line = line.replace('-', ' ')
+                line = line.replace('\n', '')
+                line = line.lower()
+                new_lines.append(line)
+
+            # put all the words plus their occurence values in a dictionary
+            for line in new_lines:
+                temp_words_list = line.split()
+                for word in temp_words_list:
+                    words.append(word)
             for word in words:
-                word_lengths[word] = len(word_lengths[word])
+                word_lengths[word] = len(word)
 
             # search dictionary for lengths
             for word in word_lengths:
                 if word_lengths[word] > longest_word_length:
                     longest_word_length = word_lengths[word]
 
-            print("Your longest word(s) are: ")
             for word in word_lengths:
                 if word_lengths[word] == longest_word_length:
-                    print(word)
-            print("All being " + longest_word_length + " long")
+                    long_words[word] = longest_word_length
+            return long_words
 
     def unique_word_count(self):
         word_occurences = {}
-        unique_words = {}
+        unique_words = []
+        lines = []
+        new_lines = []
+        words = []
         with open(self.text_title,'r') as f:
-            f = f.replace(',', '')
-            f = f.replace('.', '')
-            f = f.replace('!', '')
-            f = f.replace('?', '')
-            f = f.replace(':', '')
-            f = f.replace(';', '')
-            f = f.replace('(', '')
-            f = f.replace(')', '')
-            f = f.replace(" '", '')
-            f = f.replace("' ", '')
+            for line in f:
+                lines.append(line)
+            for line in lines:
+
+                line = line.replace(',', '')
+                line = line.replace('.', '')
+                line = line.replace('!', '')
+                line = line.replace('?', '')
+                line = line.replace(':', '')
+                line = line.replace(';', '')
+                line = line.replace('(', '')
+                line = line.replace(')', '')
+                line = line.replace(" '", '')
+                line = line.replace("' ", '')
+                line = line.replace('-', ' ')
+                line = line.replace('\n', '')
+                line = line.lower()
+                new_lines.append(line)
 
             # put all the words plus their occurence values in a dictionary
-            words = f.split()
+            for line in new_lines:
+                temp_words_list = line.split()
+                for word in temp_words_list:
+                    words.append(word)
             for word in words:
                 if word in word_occurences:
                     word_occurences[word] = word_occurences[word] + 1
                 else:
                     word_occurences[word] = 1
-
-            print("Your unique(1 occurence) words are: ")
+            # add the greatest occurence words to their own dictionary
             for word in word_occurences:
                 if word_occurences[word] == 1:
-                    print(word)
+                    unique_words.append(word)
+            return unique_words
 
     def rarest_words(self):
         lowest_occurence_value = 99999
         word_occurences = {}
-        rarest_words = {}
+        least_common_words = {}
+        lines = []
+        new_lines = []
+        words = []
         with open(self.text_title,'r') as f:
-            f = f.replace(',', '')
-            f = f.replace('.', '')
-            f = f.replace('!', '')
-            f = f.replace('?', '')
-            f = f.replace(':', '')
-            f = f.replace(';', '')
-            f = f.replace('(', '')
-            f = f.replace(')', '')
-            f = f.replace(" '", '')
-            f = f.replace("' ", '')
+            for line in f:
+                lines.append(line)
+            for line in lines:
+
+                line = line.replace(',', '')
+                line = line.replace('.', '')
+                line = line.replace('!', '')
+                line = line.replace('?', '')
+                line = line.replace(':', '')
+                line = line.replace(';', '')
+                line = line.replace('(', '')
+                line = line.replace(')', '')
+                line = line.replace(" '", '')
+                line = line.replace("' ", '')
+                line = line.replace('-', ' ')
+                line = line.replace('\n', '')
+                line = line.lower()
+                new_lines.append(line)
 
             # put all the words plus their occurence values in a dictionary
-            words = f.split()
+            for line in new_lines:
+                temp_words_list = line.split()
+                for word in temp_words_list:
+                    words.append(word)
             for word in words:
                 if word in word_occurences:
                     word_occurences[word] = word_occurences[word] + 1
                 else:
                     word_occurences[word] = 1
-
             # search dictionary for occurence values
             for word in word_occurences:
                 if word_occurences[word] < lowest_occurence_value:
                     lowest_occurence_value = word_occurences[word]
-
-            print("Your rarest words are: ")
+            # add the greatest occurence words to their own dictionary
             for word in word_occurences:
                 if word_occurences[word] == lowest_occurence_value:
-                    print(word)
-            print("With " + lowest_occurence_value + "occurence(s) each")
+                    least_common_words[word] = lowest_occurence_value
+            return least_common_words
+
 
     def word_occurence(self):
         word_count = 0
@@ -336,12 +388,12 @@ class Book:
         # and then tries the secondary method
         #  '''
         total_syllables = 0 # the counter starts at 0
-        with open(self.text_title,'r') as f: 
+        with open(self.text_title,'r') as f:
             for line in f:
-                for syl_word in line: 
+                for syl_word in line:
                     try:
                         syl_list = nsyl(syl_word) # Try the primary method
-                        if len(syl_list) == 1: # Sometimes there's an error 
+                        if len(syl_list) == 1: # Sometimes there's an error
                             total_syllables = total_syllables + syl_list[0]
                         else:
                             total_syllables = total_syllables +nsyl_2(syl_word)
@@ -401,10 +453,10 @@ class Book:
             new_file.write("The total word count is: " + str(self.total_word_count()) + "\n")
             new_file.write("The most common word(s) are: " + str(self.most_common_words()) + "\n")
             # new_file.write("The lexical density is: " + str(self.lexical_density()) + "\n")
-            # new_file.write(self.shortest_words() + "\n")
-            # new_file.write(self.longest_words() + "\n")
-            # new_file.write(self.unique_word_count() + "\n")
-            # new_file.write(self.rarest_words() + "\n")
+            new_file.write("The shortest word(s) are: " + str(self.shortest_words()) + "\n")
+            new_file.write("The longest word(s) are: " + str(self.longest_words()) + "\n")
+            new_file.write("The unique (1 occurence) word(s) are: " + str(self.unique_word_count()) + "\n")
+            new_file.write("The least common word(s) are: " + str(self.rarest_words()) + "\n")
             new_file.write("The total number of sentences is: " + str(self.num_of_sentences()) + "\n")
             new_file.write("The average sentence length is: " + str(self.average_sentence_length()) + "\n")
             new_file.write("The minimum sentence length is: " + str(self.min_sentence_length()) + "\n")
