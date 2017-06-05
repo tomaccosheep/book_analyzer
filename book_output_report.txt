@@ -1,5 +1,6 @@
 The total character count is: 1152
 The total word count is: 278
+The most common words are: {'that': 13}
 The total number of sentences is: 10
 The average sentence length is: 491.3333333333333
 The minimum sentence length is: 177
